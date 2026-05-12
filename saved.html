@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Name</title>
+  <title>Saved — Project Name</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -24,21 +24,10 @@
 
   <main>
 
-    <!-- search / filter form -->
     <section>
-      <form id="search-form">
-        <!-- add your inputs here (at least 3 different types) -->
-        <button type="submit">Search</button>
-      </form>
-    </section>
-
-    <!-- loading and error states -->
-    <p id="loading-msg" hidden>Loading…</p>
-    <p id="error-msg" hidden></p>
-
-    <!-- dynamically generated cards land here -->
-    <section>
-      <div id="results-grid"></div>
+      <h2>Saved Items</h2>
+      <p id="saved-empty" hidden>Nothing saved yet.</p>
+      <div id="saved-grid"></div>
     </section>
 
   </main>
@@ -47,6 +36,6 @@
     <!-- footer content -->
   </footer>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/saved.js"></script>
 </body>
 </html>

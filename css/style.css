@@ -7,15 +7,23 @@
 
 /* ===== header ===== */
 
-/* ===== nav ===== */
+/* ===== nav — use Flexbox here ===== */
+
+/* ===== login page ===== */
 
 /* ===== main ===== */
+
+/* ===== form ===== */
 
 /* ===== results grid — use CSS Grid here ===== */
 
 /* ===== card ===== */
 
+/* ===== saved grid — use CSS Grid here ===== */
+
 /* ===== loading & error states ===== */
+
+/* ===== footer ===== */
 
 /* ===== responsive ===== */
 @media (max-width: 600px) {
