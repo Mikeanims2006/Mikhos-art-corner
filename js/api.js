@@ -1,4 +1,4 @@
-const BASE_URL = ''; // replace with your API base URL
+const BASE_URL = 'https://api.jikan.moe/v4'; // replace with your API base URL | replaced
 
 export async function fetchData(endpoint) {
   // fetch, check response.ok, return response.json()
