@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mike's art portfolio | contact</title>
+  <title>Mike's art portfolio | Contact</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+  <header>
+    <nav>
+      <span class="nav__logo">Mike's art portfolio</span>
+      <div class="nav__links">
+        <a href="index.html">Gallery</a>
+        <a href="inspirations.html">Inspirations</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
   <main>
-
-    <form id="contact-form">
-      <!-- input type="text" with validation attributes -->
-      <label for="name-input">Your name</label>
-      <input id="name-input" type="text" name="name" required minlength="2" autocomplete="name">
-
-      <p id="login-error" hidden></p>
-
-      <button type="submit">Start →</button>
-    </form>
-
+    <h1>My Contacts</h1>
+    
+    <div class="contact-info">
+      <p><strong>Email:</strong> <a href="mailto:mikeanims@yahoo.com">My Email</a></p>
+      <p><strong>YouTube:</strong> <a href="https://youtube.com/@mikeanims2006?si=7JUwQG0ZbkvV7ObL" target="_blank">My YouTube</a></p>
+    </div>
   </main>
 
   <script type="module" src="js/contact.js"></script>
