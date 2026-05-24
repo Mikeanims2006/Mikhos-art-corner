@@ -1,3 +1,3 @@
-// js/main.js
+// js/gallery.js
 
 console.log("Visual gallery portfolio loaded successfully.");
