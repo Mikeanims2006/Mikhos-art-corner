@@ -23,52 +23,67 @@
     
     <header class="intro">
       <h1>Inspirations</h1>
-      <p>My entire watchlist/readlist</p>
+      <p>Masterpieces that have deeply influenced my style and journey.</p>
     </header>
 
-    <aside class="filter-block">
-      <form id="filter-form">
-        <fieldset>
-          <legend class="sr-only">Filter Watchlist and Readlist</legend>
+    <!-- Hardcoded Personal Favorites Section -->
+    <section class="inspiration-section static-favorites" aria-label="Personal Favorites">
+      <h2>Personal Favorites</h2>
+      <div class="inspirations-grid">
+        
+        <article class="anime-card static-card">
+          <img src="assets/placeholder.jpg" alt="Vagabond Cover Art" class="card-image">
+          <h3 class="card-title">Vagabond</h3>
+          <p class="card-info">Manga | ⭐ Favorite</p>
+        </article>
 
-          <div class="filter-group">
-            <label for="search-input">Filter by Title:</label>
-            <input type="text" id="search-input" placeholder="e.g. vagabond, vinland saga...">
-          </div>
+        <article class="anime-card static-card">
+          <img src="assets/placeholder.jpg" alt="Vinland Saga Cover Art" class="card-image">
+          <h3 class="card-title">Vinland Saga</h3>
+          <p class="card-info">Manga & Anime | ⭐ Favorite</p>
+        </article>
 
-          <div class="filter-group">
-            <label for="type-select">Format Type:</label>
-            <select id="type-select">
-              <option value="all">All Media</option>
-              <option value="anime">Anime Only</option>
-              <option value="movie">Movies Only</option>
-              <option value="manga">Manga Only</option>
-            </select>
-          </div>
+        <article class="anime-card static-card">
+          <img src="assets/placeholder.jpg" alt="Attack on Titan Artwork" class="card-image">
+          <h3 class="card-title">Attack on Titan</h3>
+          <p class="card-info">Anime & Manga | ⭐ Favorite</p>
+        </article>
 
-          <div class="filter-group checkbox-group">
-            <input type="checkbox" id="show-highly-rated">
-            <label for="show-highly-rated">Highest rated(9+/10)</label>
-          </div>
-
-          <button type="submit" class="filter-btn">Apply Filters</button>
-        </fieldset>
-      </form>
-    </aside>
-
-    <section class="inspiration-section favorites-section">
-      <h2>Personal Favourites</h2>
-      <p class="section-desc">Masterpieces that have deeply influenced my style and journey</p>
-      
-      <div id="favorites-grid" class="inspirations-grid">
-        </div>
+      </div>
     </section>
 
     <hr class="section-divider">
 
-    <section class="inspiration-section feed-section" aria-label="MyAnimeList Stream Feed">
+    <!-- Dynamic Database Search Engine Section -->
+    <section class="inspiration-section search-module">
+      <h2>Explore Global Catalog</h2>
+      
+      <aside class="filter-block">
+        <form id="filter-form">
+          <fieldset>
+            <legend class="sr-only">Search Media Database</legend>
+
+            <div class="filter-group">
+              <label for="search-input">Search Title:</label>
+              <input type="text" id="search-input" placeholder="e.g. Berserk, Usogui..." required>
+            </div>
+
+            <div class="filter-group">
+              <label for="medium-select">Media Category:</label>
+              <select id="medium-select">
+                <option value="anime">Anime Series & Movies</option>
+                <option value="manga">Manga & Light Novels</option>
+              </select>
+            </div>
+
+            <button type="submit" class="filter-btn">Search Database</button>
+          </fieldset>
+        </form>
+      </aside>
+
       <div id="mal-feed-grid" class="inspirations-grid">
-        </div>
+        <p class="no-results">Use the search box above to explore more industry layouts!</p>
+      </div>
     </section>
 
   </main>
