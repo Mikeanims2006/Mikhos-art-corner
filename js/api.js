@@ -21,13 +21,38 @@ export async function fetchData(endpoint) {
 }
 
 /**
- * Global search engine router splitting between /anime and /manga
+ * Base search execution that queries a specific single route string
  */
-export async function searchGlobalCatalog(query, medium) {
-  const endpoint = medium === 'manga' ? '/manga' : '/anime';
-  const url = `${endpoint}?q=${encodeURIComponent(query)}`;
-  
+export async function querySingleEndpoint(query, typeRoute, minScore) {
+  let url = `/${typeRoute}?q=${encodeURIComponent(query)}`;
+  if (minScore) {
+    url += `&min_score=${minScore}`;
+  }
   return await fetchData(url);
+}
+
+/**
+ * Global search engine router splitting between single lookups or combined parallel fetches
+ */
+export async function searchGlobalCatalog(query, medium, minScore) {
+  if (medium === 'both') {
+    // 🚀 ASYNC UPGRADE: Fire both fetches at the exact same time!
+    const [animeResults, mangaResults] = await Promise.all([
+      querySingleEndpoint(query, 'anime', minScore),
+      querySingleEndpoint(query, 'manga', minScore)
+    ]);
+
+    // Tag each result item so the renderer knows its origin format layout
+    const taggedAnime = animeResults.map(item => ({ ...item, originMedium: 'anime' }));
+    const taggedManga = mangaResults.map(item => ({ ...item, originMedium: 'manga' }));
+
+    // Merge them into one big array, sorting highest scored content first
+    const combined = [...taggedAnime, ...taggedManga];
+    return combined.sort((a, b) => (b.score || 0) - (a.score || 0));
+  }
+
+  // Fallback to old behavior for explicit single choice filters
+  return await querySingleEndpoint(query, medium, minScore);
 }
 
 // localStorage state helpers

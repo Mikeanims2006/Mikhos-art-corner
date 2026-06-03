@@ -5,11 +5,9 @@ import { searchGlobalCatalog } from './api.js';
 const filterForm = document.getElementById('filter-form');
 const searchInput = document.getElementById('search-input');
 const mediumSelect = document.getElementById('medium-select');
+const searchRating = document.getElementById('search-rating');
 const malFeedGrid = document.getElementById('mal-feed-grid');
 
-/**
- * Helper delay function to stay within Jikan's API rate limits
- */
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 /**
@@ -24,16 +22,13 @@ async function loadPersonalFavorites() {
 
   for (const fav of favoritesToFetch) {
     try {
-      // Query Jikan for the exact title
-      const results = await searchGlobalCatalog(fav.title, fav.medium);
+      const results = await searchGlobalCatalog(fav.title, fav.medium, null);
       
       if (results && results.length > 0) {
-        // Look for exact title match, otherwise fall back to first result
         const exactMatch = results.find(item => item.title.toLowerCase() === fav.title.toLowerCase()) || results[0];
         const freshImgUrl = exactMatch.images?.jpg?.image_url;
 
         if (freshImgUrl) {
-          // Find the static card by matching text content of h3 elements
           const cardHeadings = document.querySelectorAll('.static-favorites .card-title');
           cardHeadings.forEach(heading => {
             if (heading.textContent.trim() === fav.selector) {
@@ -42,7 +37,6 @@ async function loadPersonalFavorites() {
                 imgElement.src = freshImgUrl;
               }
               
-              // Add a click listener to your favorite cards as well!
               heading.parentElement.addEventListener('click', () => {
                 alert(`"${exactMatch.title}"\nOne of your all-time favorites!\nGlobal Rating: ${exactMatch.score || 'N/A'}/10`);
               });
@@ -50,7 +44,6 @@ async function loadPersonalFavorites() {
           });
         }
       }
-      // Wait 1 second between requests so Jikan doesn't hit us with a 429 rate-limit error
       await delay(1000);
       
     } catch (err) {
@@ -67,18 +60,18 @@ async function handleSearchSubmit(event) {
 
   const queryText = searchInput.value.trim();
   const selectedMedium = mediumSelect.value; 
+  const minScore = searchRating.value ? parseInt(searchRating.value) : null;
 
   if (!queryText) return;
 
-  // Visual layout clearing and mounting loading indicator
   malFeedGrid.innerHTML = '';
   const loader = document.createElement('p');
   loader.className = 'loading-text';
-  loader.textContent = `Searching database entries for "${queryText}"...`;
+  loader.textContent = `Searching comprehensive database records for "${queryText}"...`;
   malFeedGrid.appendChild(loader);
 
   try {
-    const results = await searchGlobalCatalog(queryText, selectedMedium);
+    const results = await searchGlobalCatalog(queryText, selectedMedium, minScore);
     
     malFeedGrid.innerHTML = '';
     renderMediaCards(results, selectedMedium);
@@ -95,9 +88,9 @@ async function handleSearchSubmit(event) {
 /**
  * Layout loops transforming search arrays into visual UI grids
  */
-function renderMediaCards(items, medium) {
+function renderMediaCards(items, selectedMedium) {
   if (!items || items.length === 0) {
-    malFeedGrid.innerHTML = '<p class="no-results">No entries matches that keyword. Try another title!</p>';
+    malFeedGrid.innerHTML = '<p class="no-results">No entries match those parameters. Try adjusting your filters!</p>';
     return;
   }
 
@@ -105,15 +98,22 @@ function renderMediaCards(items, medium) {
     const title = item.title || 'Unknown Title';
     const score = item.score || 'Unrated';
     const imgUrl = item.images?.jpg?.image_url || 'assets/placeholder.jpg';
-    const subType = item.type || (medium === 'manga' ? 'Manga' : 'TV');
+    
+    // Fall back intelligently depending on whether it's a separate category or a combined mixed payload
+    const finalMediumType = item.originMedium || selectedMedium;
+    const subType = item.type || (finalMediumType === 'manga' ? 'Manga' : 'TV');
 
     const card = document.createElement('article');
     card.className = 'anime-card';
 
     const img = document.createElement('img');
     img.src = imgUrl;
-    img.alt = `Visual keyframe artwork or chapter layout for ${title}`;
+    img.alt = `Visual layout illustration for ${title}`;
     img.className = 'card-image';
+    
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('width', '225');
+    img.setAttribute('height', '320');
 
     const heading = document.createElement('h3');
     heading.className = 'card-title';
@@ -123,9 +123,8 @@ function renderMediaCards(items, medium) {
     infoText.className = 'card-info';
     infoText.textContent = `${subType} | ⭐ Rating: ${score}/10`;
 
-    // Meaningful closure implementation for item selection
     card.addEventListener('click', function() {
-      alert(`"${title}"\nCategory: ${medium.toUpperCase()} (${subType})\nScore: ${score}/10\n\nStudy this masterpiece's panels and storyboards!`);
+      alert(`"${title}"\nCategory: ${finalMediumType.toUpperCase()} (${subType})\nScore: ${score}/10\n\nStudy this masterpiece's production standards!`);
     });
 
     card.appendChild(img);
@@ -152,5 +151,5 @@ if (mediumSelect) {
   });
 }
 
-// Ignition switch: Fix the static placeholder images instantly on load!
+// Ignition switch
 loadPersonalFavorites();
