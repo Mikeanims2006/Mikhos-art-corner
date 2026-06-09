@@ -1,6 +1,22 @@
 /* ===== custom properties ===== */
 :root {
   /* colour palette and spacing variables */
+      /* 🖥️ Core Dark Backgrounds */
+      --bg-primary: #0a0a0c;         /* Deep matte black background */
+      --bg-surface: #141614;         /* Black surface with a barely visible hint of olive ink */
+      --bg-surface-hover: #1c201d;   /* A subtle desaturated green block shift for card hovers */
+    
+      /* 🟡 The Primary Spotlight (Yellows) */
+      --accent-yellow: #f1c40f;      /* Studio yellow for main text highlights and primary links */
+      --accent-yellow-muted: #d4ac0d;/* Deep gold for active states or subtle yellow accents */
+      
+      /* 🌿 The Atmospheric Accents (Desaturated Greens) */
+      --color-secondary: #3b443c;    /* Flat, desaturated dark sage green for borders and field inputs */
+      --green-hover-glow: #526354;   /* Brighter (but still unsaturated) moss green for hovers/buttons */
+      
+      /* 📝 Typography Profiles */
+      --text-main: #f7fafc;          /* Crisp off-white for main reading copy */
+      --text-muted: #828c84;         /* Soft green-gray tone for secondary info/labels */
 }
 
 /* ===== reset ===== */
