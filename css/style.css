@@ -1,51 +1,248 @@
-/* ===== custom properties ===== */
-:root {
-  /* colour palette and spacing variables */
-      /* 🖥️ Core Dark Backgrounds */
-      --bg-primary: #0a0a0c;         /* Deep matte black background */
-      --bg-surface: #141614;         /* Black surface with a barely visible hint of olive ink */
-      --bg-surface-hover: #1c201d;   /* A subtle desaturated green block shift for card hovers */
+/* ==========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================== */
+   :root {
+    --bg-primary: #0a0a0c;
+    --bg-surface: #141416;
+    --bg-surface-hover: #1e1e22;
+    --accent-yellow: #f1c40f;
+    --accent-yellow-muted: #d4ac0d;
+    --color-secondary: #333336;
+    --gray-hover-glow: #4e5156;
+    --text-main: #f7fafc;
+    --text-muted: #86888c;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --transition-smooth: all 0.25s ease-in-out;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+  }
+  
+  /* ==========================================
+     2. NAVIGATION HEADER
+     ========================================== */
+  header {
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--color-secondary);
+    padding: 1rem 2rem;
+  }
+  
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .nav__logo {
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  .nav__links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav__links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+  }
+  
+  .nav__links a:hover,
+  .nav__links a.active {
+    color: var(--accent-yellow);
+    background-color: var(--bg-surface-hover);
+  }
+  
+  /* ==========================================
+     3. LAYOUT CONTAINERS & CARDS
+     ========================================== */
+  .contact-container {
+    max-width: 750px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+  }
+  
+  /* Base Card Configurations */
+  .about-me,
+  .contacts-block,
+  .contact-form-block {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    overflow: hidden; /* Ensures the inner header backgrounds cleanly follow the wrapper's corner radiuses */
+  }
+  
+  /* Reusable Shared Header Strip Component */
+  .card__header {
+    background-color: var(--color-secondary);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .card__header h1,
+  .card__header h2 {
+    color: var(--accent-yellow);
+    margin-bottom: 0;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+  
+  /* Specific Card Inner Content Paddings */
+  .about-me__content,
+  .contact-links {
+    padding: 2rem;
+  }
+  
+  .contact-form-block {
+    padding: 2rem;
+  }
+  
+  h3 {
+    color: var(--accent-yellow);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  
+  .contact-links p {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .contact-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent-yellow);
+    transition: var(--transition-smooth);
+  }
+  
+  .contact-links a:hover {
+    color: var(--accent-yellow);
+    border-bottom-style: solid;
+  }
+  
+  /* ==========================================
+     4. INTERACTIVE FORM
+     ========================================== */
+  .interactive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  
+  .interactive-form input,
+  .interactive-form textarea {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--color-secondary);
+    color: var(--text-main);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    width: 100%;
+    transition: var(--transition-smooth);
+  }
+  
+  .interactive-form input:focus,
+  .interactive-form textarea:focus {
+    outline: none;
+    border-color: var(--gray-hover-glow);
+    box-shadow: 0 0 0 3px rgba(78, 81, 86, 0.25);
+  }
+  
+  .interactive-form textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+  
+  .submit-btn {
+    background-color: var(--accent-yellow);
+    color: var(--bg-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    padding: 0.85rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+  
+  .submit-btn:hover {
+    background-color: var(--accent-yellow-muted);
+  }
+  
+  .form-feedback-msg {
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* ==========================================
+     5. FOOTER & MEDIA QUERIES
+     ========================================== */
+  footer {
+    margin-top: auto;
+    background-color: var(--bg-surface);
+    border-top: 2px solid var(--color-secondary);
+    padding: 1.25rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  
+  @media (max-width: 600px) {
+    header {
+      padding: 1rem;
+    }
     
-      /* 🟡 The Primary Spotlight (Yellows) */
-      --accent-yellow: #f1c40f;      /* Studio yellow for main text highlights and primary links */
-      --accent-yellow-muted: #d4ac0d;/* Deep gold for active states or subtle yellow accents */
-      
-      /* 🌿 The Atmospheric Accents (Desaturated Greens) */
-      --color-secondary: #3b443c;    /* Flat, desaturated dark sage green for borders and field inputs */
-      --green-hover-glow: #526354;   /* Brighter (but still unsaturated) moss green for hovers/buttons */
-      
-      /* 📝 Typography Profiles */
-      --text-main: #f7fafc;          /* Crisp off-white for main reading copy */
-      --text-muted: #828c84;         /* Soft green-gray tone for secondary info/labels */
-}
-
-/* ===== reset ===== */
-
-/* ===== header ===== */
-
-/* ===== nav — use Flexbox here ===== */
-
-/* ===== login page ===== */
-
-/* ===== main ===== */
-
-/* ===== form ===== */
-
-/* ===== results grid — use CSS Grid here ===== */
-
-/* ===== card ===== */
-
-/* ===== saved grid — use CSS Grid here ===== */
-
-/* ===== loading & error states ===== */
-
-/* ===== footer ===== */
-
-/* ===== responsive ===== */
-@media (max-width: 600px) {
-  /* mobile */
-}
-
-@media (min-width: 1024px) {
-  /* desktop */
-}
+    .about-me__content,
+    .contact-links,
+    .contact-form-block {
+      padding: 1.25rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    nav {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
