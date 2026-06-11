@@ -13,7 +13,7 @@
       <span class="nav__logo">Mikho's art corner</span>
       <div class="nav__links">
         <a href="index.html">Gallery</a>
-        <a href="inspirations.html">Inspirations</a>
+        <a href="inspirations.html" class="active">Inspirations</a>
         <a href="contact.html">Contact</a>
       </div>
     </nav>
@@ -26,25 +26,87 @@
       <p>Masterpieces that have deeply influenced my style and journey.</p>
     </header>
 
-    <section class="inspiration-section static-favorites" aria-label="Personal Favorites">
+    <section class="inspiration-section static-favorites" aria-label="Favorite Manga">
+      <h2>Favorite Manga</h2>
       <div class="inspirations-grid">
         
-        <article class="anime-card static-card">
-          <img src="assets/placeholder.jpg" alt="Vagabond Cover Art" class="card-image" loading="lazy">
+        <article class="anime-card static-card" data-title="Vagabond" data-medium="manga">
+          <img src="assets/placeholder.jpg" alt="Vagabond Cover Art" class="card-image">
           <h3 class="card-title">Vagabond</h3>
-          <p class="card-info">Manga | ⭐ Favorite</p>
+          <p class="card-info">Manga | ❤️ Favorite</p>
         </article>
 
-        <article class="anime-card static-card">
-          <img src="assets/placeholder.jpg" alt="Vinland Saga Cover Art" class="card-image" loading="lazy">
+        <article class="anime-card static-card" data-title="Vinland Saga" data-medium="manga">
+          <img src="assets/placeholder.jpg" alt="Vinland Saga Manga Cover Art" class="card-image">
           <h3 class="card-title">Vinland Saga</h3>
-          <p class="card-info">Manga & Anime | ⭐ Favorite</p>
+          <p class="card-info">Manga | ❤️ Favorite</p>
         </article>
 
-        <article class="anime-card static-card">
-          <img src="assets/placeholder.jpg" alt="Attack on Titan Cover Art" class="card-image" loading="lazy">
+        <article class="anime-card static-card" data-title="Sayonara Eri" data-medium="manga">
+          <img src="assets/placeholder.jpg" alt="Sayonara Eri Cover Art" class="card-image">
+          <h3 class="card-title">Sayonara Eri</h3>
+          <p class="card-info">Manga | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Kingdom" data-medium="manga">
+          <img src="assets/placeholder.jpg" alt="Kingdom Cover Art" class="card-image">
+          <h3 class="card-title">Kingdom</h3>
+          <p class="card-info">Manga | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Usogui" data-medium="manga">
+          <img src="assets/placeholder.jpg" alt="Usogui Cover Art" class="card-image" loading="lazy">
+          <h3 class="card-title">Usogui</h3>
+          <p class="card-info">Manga | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Berserk" data-medium="manga">
+          <img src="assets/placeholder.jpg" alt="Berserk Cover Art" class="card-image" loading="lazy">
+          <h3 class="card-title">Berserk</h3>
+          <p class="card-info">Manga | ❤️ Favorite</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="inspiration-section static-favorites" aria-label="Favorite Anime">
+      <h2>Favorite Anime</h2>
+      <div class="inspirations-grid">
+        
+        <article class="anime-card static-card" data-title="JoJo's Bizarre Adventure: Golden Wind" data-medium="anime">
+          <img src="assets/placeholder.jpg" alt="Golden Wind Cover Art" class="card-image">
+          <h3 class="card-title">JoJo: Golden Wind</h3>
+          <p class="card-info">Anime | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Vinland Saga" data-medium="anime">
+          <img src="assets/placeholder.jpg" alt="Vinland Saga Anime Cover Art" class="card-image">
+          <h3 class="card-title">Vinland Saga</h3>
+          <p class="card-info">Anime | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Attack on Titan" data-medium="anime">
+          <img src="assets/placeholder.jpg" alt="Attack on Titan Cover Art" class="card-image">
           <h3 class="card-title">Attack on Titan</h3>
-          <p class="card-info">Anime & Manga | ⭐ Favorite</p>
+          <p class="card-info">Anime | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Cyberpunk: Edgerunners" data-medium="anime">
+          <img src="assets/placeholder.jpg" alt="Cyberpunk: Edgerunners Cover Art" class="card-image">
+          <h3 class="card-title">Cyberpunk: Edgerunners</h3>
+          <p class="card-info">Anime | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Chainsaw Man" data-medium="anime">
+          <img src="assets/placeholder.jpg" alt="Chainsaw Man Cover Art" class="card-image" loading="lazy">
+          <h3 class="card-title">Chainsaw Man</h3>
+          <p class="card-info">Anime | ❤️ Favorite</p>
+        </article>
+
+        <article class="anime-card static-card" data-title="Sousou no Frieren" data-medium="anime">
+          <img src="assets/placeholder.jpg" alt="Sousou no Frieren Cover Art" class="card-image" loading="lazy">
+          <h3 class="card-title">Sousou no Frieren</h3>
+          <p class="card-info">Anime | ❤️ Favorite</p>
         </article>
 
       </div>
@@ -62,7 +124,7 @@
 
             <div class="filter-group">
               <label for="search-input">Search Title:</label>
-              <input type="text" id="search-input" placeholder="e.g. Berserk, Usogui..." required>
+              <input type="text" id="search-input" placeholder="e.g. Evangelion, Golden Kamuy...." required>
             </div>
 
             <div class="filter-group">
@@ -92,7 +154,7 @@
       </aside>
 
       <div id="mal-feed-grid" class="inspirations-grid">
-        <p class="no-results">Use the search box above to explore more industry layouts!</p>
+        <p class="no-results">Use the search box above to explore more anime/manga!</p>
       </div>
     </section>
 

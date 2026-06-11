@@ -1,26 +1,53 @@
-// js/inspirations.js
 import { searchGlobalCatalog } from './api.js';
 
 // DOM Target References
 const filterForm = document.getElementById('filter-form');
 const searchInput = document.getElementById('search-input');
 const mediumSelect = document.getElementById('medium-select');
-const searchRating = document.getElementById('search-rating');
 const malFeedGrid = document.getElementById('mal-feed-grid');
+const searchRating = document.getElementById('search-rating');
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 /**
- * Automatically fetches pristine image URLs for your personal favorites on page load
+ * Automatically fetches image URLs for all personal favorites with Caching & Transparency
  */
 async function loadPersonalFavorites() {
   const favoritesToFetch = [
-    { title: 'Vagabond', medium: 'manga', selector: 'Vagabond' },
-    { title: 'Vinland Saga', medium: 'manga', selector: 'Vinland Saga' },
-    { title: 'Attack on Titan', medium: 'anime', selector: 'Attack on Titan' }
+    { title: 'Vagabond', medium: 'manga' },
+    { title: 'Vinland Saga', medium: 'manga' },
+    { title: 'Sayonara Eri', medium: 'manga' },
+    { title: 'Kingdom', medium: 'manga' },
+    { title: 'Vinland Saga', medium: 'anime' },
+    { title: "JoJo's Bizarre Adventure: Golden Wind", medium: 'anime' },
+    { title: 'Attack on Titan', medium: 'anime' },
+    { title: 'Cyberpunk: Edgerunners', medium: 'anime' },
+    { title: 'Usogui', medium: 'manga' },
+    { title: 'Chainsaw Man', medium: 'anime' },
+    { title: 'Berserk', medium: 'manga' },
+    { title: 'Sousou no Frieren', medium: 'anime' }
   ];
 
+  const CACHE_KEY = 'mikho_fav_cache';
+  const cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+  const now = Date.now();
+
   for (const fav of favoritesToFetch) {
+    const cardElement = document.querySelector(`.static-card[data-title="${fav.title}"][data-medium="${fav.medium}"]`);
+    if (!cardElement) continue;
+
+    const imgElement = cardElement.querySelector('.card-image');
+    const cacheKey = `${fav.title}_${fav.medium}`;
+
+    // 1. Check Cache (Valid for 24 hours)
+    if (cache[cacheKey] && (now - cache[cacheKey].timestamp < 86400000)) {
+      if (imgElement) imgElement.src = cache[cacheKey].url;
+      continue;
+    }
+
+    // 2. Set Loading State
+    cardElement.classList.add('is-loading');
+
     try {
       const results = await searchGlobalCatalog(fav.title, fav.medium, null);
       
@@ -29,25 +56,27 @@ async function loadPersonalFavorites() {
         const freshImgUrl = exactMatch.images?.jpg?.image_url;
 
         if (freshImgUrl) {
-          const cardHeadings = document.querySelectorAll('.static-favorites .card-title');
-          cardHeadings.forEach(heading => {
-            if (heading.textContent.trim() === fav.selector) {
-              const imgElement = heading.parentElement.querySelector('.card-image');
-              if (imgElement) {
-                imgElement.src = freshImgUrl;
-              }
-              
-              heading.parentElement.addEventListener('click', () => {
-                alert(`"${exactMatch.title}"\nOne of your all-time favorites!\nGlobal Rating: ${exactMatch.score || 'N/A'}/10`);
-              });
-            }
-          });
+          if (imgElement) imgElement.src = freshImgUrl;
+          
+          // Save to LocalStorage
+          cache[cacheKey] = { url: freshImgUrl, timestamp: now };
+          localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
         }
+
+        // Add interactive pop up
+        cardElement.addEventListener('click', () => {
+          alert(`"${exactMatch.title}"\nOne of your all-time favorites!\nGlobal Rating: ${exactMatch.score || 'N/A'}/10`);
+        });
       }
-      await delay(1000);
+      
+      // Respect API rate limits (600ms is safe for Jikan API)
+      await delay(600);
       
     } catch (err) {
-      console.error(`Failed to dynamically fetch image for ${fav.title}:`, err);
+      console.error(`Failed to dynamically fetch image data for ${fav.title}:`, err);
+    } finally {
+      // 3. Remove Loading State
+      cardElement.classList.remove('is-loading');
     }
   }
 }
@@ -99,7 +128,6 @@ function renderMediaCards(items, selectedMedium) {
     const score = item.score || 'Unrated';
     const imgUrl = item.images?.jpg?.image_url || 'assets/placeholder.jpg';
     
-    // Fall back intelligently depending on whether it's a separate category or a combined mixed payload
     const finalMediumType = item.originMedium || selectedMedium;
     const subType = item.type || (finalMediumType === 'manga' ? 'Manga' : 'TV');
 
@@ -110,7 +138,6 @@ function renderMediaCards(items, selectedMedium) {
     img.src = imgUrl;
     img.alt = `Visual layout illustration for ${title}`;
     img.className = 'card-image';
-    
     img.setAttribute('loading', 'lazy');
     img.setAttribute('width', '225');
     img.setAttribute('height', '320');
@@ -137,18 +164,6 @@ function renderMediaCards(items, selectedMedium) {
 // Attach Form Observers
 if (filterForm) {
   filterForm.addEventListener('submit', handleSearchSubmit);
-}
-
-if (searchInput) {
-  searchInput.addEventListener('input', () => {
-    console.log(`Current query typing state: ${searchInput.value}`);
-  });
-}
-
-if (mediumSelect) {
-  mediumSelect.addEventListener('change', () => {
-    console.log(`Dropdown format query change: ${mediumSelect.value}`);
-  });
 }
 
 // Ignition switch

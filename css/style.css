@@ -79,7 +79,7 @@
   }
   
   /* ==========================================
-     3. LAYOUT CONTAINERS & CARDS
+     3. LAYOUT CONTAINERS & CONTACT CARDS
      ========================================== */
   .contact-container {
     max-width: 750px;
@@ -88,7 +88,6 @@
     width: 100%;
   }
   
-  /* Base Card Configurations */
   .about-me,
   .contacts-block,
   .contact-form-block {
@@ -97,10 +96,9 @@
     border-radius: var(--radius-md);
     margin-bottom: 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    overflow: hidden; /* Ensures the inner header backgrounds cleanly follow the wrapper's corner radiuses */
+    overflow: hidden;
   }
   
-  /* Reusable Shared Header Strip Component */
   .card__header {
     background-color: var(--color-secondary);
     padding: 1rem 2rem;
@@ -115,12 +113,8 @@
     font-weight: 400;
   }
   
-  /* Specific Card Inner Content Paddings */
   .about-me__content,
-  .contact-links {
-    padding: 2rem;
-  }
-  
+  .contact-links,
   .contact-form-block {
     padding: 2rem;
   }
@@ -149,7 +143,7 @@
   }
   
   /* ==========================================
-     4. INTERACTIVE FORM
+     4. INTERACTIVE FORM (CONTACT PAGE)
      ========================================== */
   .interactive-form {
     display: flex;
@@ -216,7 +210,226 @@
   }
   
   /* ==========================================
-     5. FOOTER & MEDIA QUERIES
+     5. INSPIRATIONS PAGE ARCHITECTURE
+     ========================================== */
+  .inspirations-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+  }
+  
+  .intro {
+    margin-bottom: 2.5rem;
+  }
+  
+  .intro h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+  }
+  
+  .intro p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+  
+  .inspiration-section h2 {
+    color: var(--text-main);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Flex layout default configuration */
+  .inspirations-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* 🔄 HORIZONTAL CHANNEL SCROLLING OVERRIDES (Only for Static Favorites) */
+  .static-favorites .inspirations-grid {
+    flex-wrap: nowrap;         /* Force items to line up side-by-side */
+    overflow-x: auto;          /* Turn on horizontal scrollbar functionality */
+    padding-bottom: 1.25rem;   /* Prevents the scrollbar from clipping item boxes */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Slick scrolling physics on touchscreens */
+  }
+  
+  /* Individual Card Styling */
+  .anime-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: calc(33.333% - 1rem); /* Standard 3-column row fallback */
+    min-width: 260px;
+    transition: var(--transition-smooth);
+  }
+  
+  /* 🔄 Fixed card widths strictly inside the scrolling row wrapper */
+  .static-favorites .anime-card {
+    flex-shrink: 0;            /* Stop cards from compressing inside row */
+    width: 270px;              /* Consistent visual layout cards */
+  }
+  
+  .anime-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gray-hover-glow);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .card-title {
+    color: var(--accent-yellow);
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-top: 0.25rem;
+  }
+  
+  .card-info {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .static-card.is-loading {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Prevents clicks while it's loading */
+  }
+  
+  /* 🎨 CUSTOM DARK-THEME CHANNEL SCROLLBAR TRACKS */
+  .static-favorites .inspirations-grid::-webkit-scrollbar {
+    height: 6px;               /* Keeps scrollbar footprint crisp and thin */
+  }
+  
+  .static-favorites .inspirations-grid::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+  }
+  
+  .static-favorites .inspirations-grid::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: var(--radius-sm);
+  }
+  
+  .static-favorites .inspirations-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-hover-glow);
+  }
+  
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--color-secondary);
+    margin: 3.5rem 0;
+  }
+  
+  /* ==========================================
+     6. SEARCH FILTER CONSOLE Styles
+     ========================================== */
+  .filter-block {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  .filter-block fieldset {
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-end;
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 220px;
+  }
+  
+  .filter-group label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  
+  .filter-block input,
+  .filter-block select {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--color-secondary);
+    color: var(--text-main);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    width: 100%;
+    height: 46px;
+    transition: var(--transition-smooth);
+  }
+  
+  .filter-block input:focus,
+  .filter-block select:focus {
+    outline: none;
+    border-color: var(--gray-hover-glow);
+    box-shadow: 0 0 0 3px rgba(78, 81, 86, 0.25);
+  }
+  
+  .filter-btn {
+    background-color: var(--accent-yellow);
+    color: var(--bg-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    padding: 0 1.75rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    height: 46px;
+    transition: var(--transition-smooth);
+  }
+  
+  .filter-btn:hover {
+    background-color: var(--accent-yellow-muted);
+  }
+  
+  .no-results {
+    color: var(--text-muted);
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  
+  /* ==========================================
+     7. FOOTER & RESPONSIVE BREAKPOINTS
      ========================================== */
   footer {
     margin-top: auto;
@@ -228,6 +441,13 @@
     font-size: 0.95rem;
   }
   
+  @media (max-width: 900px) {
+    /* Only modifies the catalog search output grids */
+    .search-module .anime-card {
+      width: calc(50% - 0.75rem);
+    }
+  }
+  
   @media (max-width: 600px) {
     header {
       padding: 1rem;
@@ -237,6 +457,16 @@
     .contact-links,
     .contact-form-block {
       padding: 1.25rem;
+    }
+    
+    /* Stacks global search catalog vertical, leaving favorites scrolling smoothly */
+    .search-module .anime-card {
+      width: 100%;
+    }
+  
+    .filter-block fieldset {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
   
