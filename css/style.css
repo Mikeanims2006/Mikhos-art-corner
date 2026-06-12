@@ -261,7 +261,9 @@
   }
   
   /* Individual Card Styling */
-  .anime-card {
+  .anime-card,
+  .static-card {
+    position: relative;        /* 🛠️ Required to center the loading spinner inside */
     background-color: var(--bg-surface);
     border: 1px solid var(--color-secondary);
     border-radius: var(--radius-md);
@@ -276,12 +278,14 @@
   }
   
   /* 🔄 Fixed card widths strictly inside the scrolling row wrapper */
-  .static-favorites .anime-card {
+  .static-favorites .anime-card,
+  .static-favorites .static-card {
     flex-shrink: 0;            /* Stop cards from compressing inside row */
     width: 270px;              /* Consistent visual layout cards */
   }
   
-  .anime-card:hover {
+  .anime-card:hover,
+  .static-card:hover {
     transform: translateY(-4px);
     border-color: var(--gray-hover-glow);
   }
@@ -306,11 +310,48 @@
     color: var(--text-muted);
     font-size: 0.95rem;
   }
-
+  
+  /* ==========================================
+     5A. AUTOMATED SPINNER LOADING STATE OVERLAYS
+     ========================================== */
+  .anime-card.is-loading,
   .static-card.is-loading {
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-    pointer-events: none; /* Prevents clicks while it's loading */
+    pointer-events: none; /* Block item interaction during script initialization */
+  }
+  
+  /* Semi-transparent protective layer matching primary canvas background dimensions */
+  .anime-card.is-loading::before,
+  .static-card.is-loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 12, 0.8);
+    border-radius: var(--radius-md);
+    z-index: 5;
+  }
+  
+  /* CSS pseudo-element spinning target configuration rings */
+  .anime-card.is-loading::after,
+  .static-card.is-loading::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--color-secondary);
+    border-top: 4px solid var(--accent-yellow);
+    border-radius: 50%;
+    z-index: 6;
+    animation: card-engine-spin 0.8s linear infinite;
+  }
+  
+  @keyframes card-engine-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   
   /* 🎨 CUSTOM DARK-THEME CHANNEL SCROLLBAR TRACKS */
@@ -442,7 +483,6 @@
   }
   
   @media (max-width: 900px) {
-    /* Only modifies the catalog search output grids */
     .search-module .anime-card {
       width: calc(50% - 0.75rem);
     }
@@ -459,7 +499,6 @@
       padding: 1.25rem;
     }
     
-    /* Stacks global search catalog vertical, leaving favorites scrolling smoothly */
     .search-module .anime-card {
       width: 100%;
     }

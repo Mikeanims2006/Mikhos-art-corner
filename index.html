@@ -12,38 +12,38 @@
     <nav>
       <span class="nav__logo">Mikho's art corner</span>
       <div class="nav__links">
-        <a href="index.html">Gallery</a>
+        <a href="index.html" class="active">Gallery</a>
         <a href="inspirations.html">Inspirations</a>
         <a href="contact.html">Contact</a>
       </div>
     </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>My Art & Animations</h2>
-      
-      <div id="gallery-grid">
-        
-        <article class="gallery-card">
-          <img src="assets/my-drawing1.png" alt="PLACEHOLDER">
-          <h3>PLACEHOLDER</h3>
-        </article>
+  <main class="gallery-container">
+    <section class="intro">
+      <h1>My Art & Animations</h1>
+      <p>My artworks and animations throughout the years</p>
+    </section>
 
-        <article class="gallery-card">
-          <video src="assets/my-animation1.mp4"></video>
-          <h3>PLACEHOLDER</h3>
-        </article>
+    <section class="gallery-section artwork-favorites">
+      <h2>Artworks</h2>
+      <div id="artwork-row-grid" class="gallery-layout-grid">
+        </div>
+    </section>
 
+    <hr class="section-divider">
+
+    <section class="gallery-section animation-favorites">
+      <h2>Animations</h2>
+      <div id="animation-row-grid" class="gallery-layout-grid">
         </div>
     </section>
   </main>
 
   <footer>
-    <p>Mikho's art corner</p>
+    <p>&copy; 2026 Mikho's art corner</p>
   </footer>
 
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
-
