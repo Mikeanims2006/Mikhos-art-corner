@@ -1,4 +1,11 @@
-:root {
+/**
+ * AUTOMATED PORTFOLIO STYLING SHEET
+ * - Implements custom dark surface properties.
+ * - Manages modern CSS Grid layout paradigms.
+ * - Optimized transition states and responsive breakpoints.
+ */
+
+ :root {
   --bg-primary: #0a0a0c;
   --bg-surface: #141416;
   --bg-surface-hover: #1e1e22;
