@@ -151,7 +151,7 @@ function renderMediaCards(items, selectedMedium) {
     infoText.textContent = `${subType} | ⭐ Rating: ${score}/10`;
 
     card.addEventListener('click', function() {
-      alert(`"${title}"\nCategory: ${finalMediumType.toUpperCase()} (${subType})\nScore: ${score}/10\n\nStudy this masterpiece's production standards!`);
+      alert(`"${title}"\nCategory: ${finalMediumType.toUpperCase()} (${subType})\nScore: ${score}/10\n`);
     });
 
     card.appendChild(img);

@@ -5,6 +5,12 @@
  * - Implements desktop hover triggers and graceful mobile touch screen toggles.
  */
 
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+console.log("Visual gallery portfolio loaded successfully.");
+=======
+>>>>>>> ce7df08 (fix: fixing the css for gallery page, artwork titles not starting with 1 and manga/anime cards showing redundant info when clicked)
 const GALLERY_CONFIG = {
   startArtworkIndex: 100,
   totalArtworksCount: 75,
@@ -65,7 +71,11 @@ function loadPortfolioChannels() {
 
     const titleHeader = document.createElement('h3');
     titleHeader.className = 'card-title';
+<<<<<<< HEAD
     titleHeader.textContent = `Illustration #${i - 100}`;
+=======
+    titleHeader.textContent = `Illustration #${i - 99}`;
+>>>>>>> ce7df08 (fix: fixing the css for gallery page, artwork titles not starting with 1 and manga/anime cards showing redundant info when clicked)
 
     cardElement.appendChild(imgElement);
     cardElement.appendChild(titleHeader);
@@ -121,4 +131,9 @@ function loadPortfolioChannels() {
 }
 
 // Ignition
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', loadPortfolioChannels);
+=======
+document.addEventListener('DOMContentLoaded', loadPortfolioChannels);
+>>>>>>> Stashed changes
+>>>>>>> ce7df08 (fix: fixing the css for gallery page, artwork titles not starting with 1 and manga/anime cards showing redundant info when clicked)
