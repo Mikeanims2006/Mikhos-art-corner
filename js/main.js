@@ -1,10 +1,3 @@
-/**
- * AUTOMATED GALLERY MANAGEMENT ENGINE
- * - Programmatically builds portfolio rows using numerical sequencing.
- * - Dynamically resolves mixed image file extensions (.jpg, .png, .jpeg).
- * - Implements desktop hover triggers and graceful mobile touch screen toggles.
- */
-
 const GALLERY_CONFIG = {
   startArtworkIndex: 100,
   totalArtworksCount: 75,
@@ -17,9 +10,6 @@ const GALLERY_CONFIG = {
   animationExt: "mp4"
 };
 
-/**
- * Automatically generates the dataset loops and directs nodes to track rows
- */
 function loadPortfolioChannels() {
   const artworkContainer = document.getElementById('artwork-row-grid');
   const animationContainer = document.getElementById('animation-row-grid');
@@ -29,29 +19,53 @@ function loadPortfolioChannels() {
   artworkContainer.innerHTML = '';
   animationContainer.innerHTML = '';
 
-  // 🎨 1. AUTOMATICALLY LOOP & RENDER ARTWORKS (With dynamic extension fallbacks)
+  /* Intersection observer to handle lazy loading as elements scroll into view */
+  const mediaObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const mediaElement = entry.target;
+        if (mediaElement.dataset.src) {
+          mediaElement.src = mediaElement.dataset.src;
+          mediaElement.removeAttribute('data-src');
+          
+          /* If the element is a video, force-load the first frame to prevent a black card */
+          if (mediaElement.tagName === 'VIDEO') {
+            mediaElement.load();
+          }
+        }
+        observer.unobserve(mediaElement);
+      }
+    });
+  }, {
+    rootMargin: '200px 0px'
+  });
+
   const maxArtworkLimit = GALLERY_CONFIG.startArtworkIndex + GALLERY_CONFIG.totalArtworksCount;
   
+  /* Loop and render image elements */
   for (let i = GALLERY_CONFIG.startArtworkIndex; i < maxArtworkLimit; i++) {
     const cardElement = document.createElement('article');
     cardElement.className = 'anime-card';
 
     const imgElement = document.createElement('img');
     imgElement.className = 'card-image';
-    imgElement.loading = 'lazy';
     imgElement.alt = `Digital Illustration Piece #${i - 99}`;
 
     const srcJpg = `${GALLERY_CONFIG.artworkFolder}/${GALLERY_CONFIG.artworkPrefix}${i}.jpg`;
     const srcPng = `${GALLERY_CONFIG.artworkFolder}/${GALLERY_CONFIG.artworkPrefix}${i}.png`;
     const srcJpeg = `${GALLERY_CONFIG.artworkFolder}/${GALLERY_CONFIG.artworkPrefix}${i}.jpeg`;
 
-    imgElement.src = srcJpg;
+    /* Eager load the first 8 visible items and lazy load the rest */
+    if (i < GALLERY_CONFIG.startArtworkIndex + 8) {
+      imgElement.loading = 'eager';
+      imgElement.src = srcJpg;
+    } else {
+      imgElement.loading = 'lazy';
+      imgElement.dataset.src = srcJpg;
+      mediaObserver.observe(imgElement);
+    }
 
-    /**
-     * 🔄 EXTENSION FALLBACK CASCADE
-     * If the current file target doesn't exist, try the alternatives sequentially 
-     * before dropping into a black frame layout state.
-     */
+    /* Sequential fallback check for image file extensions */
     imgElement.onerror = function() {
       if (this.src.endsWith('.jpg')) {
         this.src = srcPng;
@@ -65,7 +79,6 @@ function loadPortfolioChannels() {
 
     const titleHeader = document.createElement('h3');
     titleHeader.className = 'card-title';
-    // Fixes titles so they start counting cleanly from #1 instead of #0
     titleHeader.textContent = `Illustration #${i - 99}`;
 
     cardElement.appendChild(imgElement);
@@ -73,19 +86,23 @@ function loadPortfolioChannels() {
     artworkContainer.appendChild(cardElement);
   }
 
-  // 🎬 2. AUTOMATICALLY LOOP & RENDER ANIMATIONS (With Hybrid Touch Controls)
+  /* Loop and render video elements */
   for (let j = 1; j <= GALLERY_CONFIG.totalAnimations; j++) {
     const cardElement = document.createElement('article');
     cardElement.className = 'anime-card';
 
     const videoElement = document.createElement('video');
-    videoElement.src = `${GALLERY_CONFIG.animationFolder}/${GALLERY_CONFIG.animationPrefix}${j}.${GALLERY_CONFIG.animationExt}`;
+    const targetVideoSrc = `${GALLERY_CONFIG.animationFolder}/${GALLERY_CONFIG.animationPrefix}${j}.${GALLERY_CONFIG.animationExt}`;
+    
     videoElement.muted = true;
     videoElement.loop = true;
     videoElement.playsInline = true;
     videoElement.className = 'card-image';
-    videoElement.setAttribute('preload', 'metadata');
+    videoElement.setAttribute('preload', 'none');
+    videoElement.dataset.src = targetVideoSrc;
+    mediaObserver.observe(videoElement);
 
+    /* Mouse triggers for desktop hover playback */
     cardElement.addEventListener('mouseenter', () => {
       videoElement.play().catch(() => {});
     });
@@ -95,6 +112,7 @@ function loadPortfolioChannels() {
       videoElement.currentTime = 0;
     });
     
+    /* Touch triggers for mobile touch playback and reset toggles */
     cardElement.addEventListener('touchstart', (e) => {
       e.preventDefault(); 
       
@@ -122,5 +140,4 @@ function loadPortfolioChannels() {
   }
 }
 
-// Ignition
 document.addEventListener('DOMContentLoaded', loadPortfolioChannels);

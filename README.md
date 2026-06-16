@@ -1,6 +1,6 @@
 # Final Project: Mikho's Art Corner
 
-A website containint my artworks and animations, contact info and links, as well as inspirations and searching feature for manga/anime
+A website containing my artworks and animations, contact info and links, as well as inspirations and searching feature for manga/anime
 
 
 **File structure:**
@@ -20,3 +20,5 @@ your-project/
     |-- Animations        ← A folder containing all the animations
     |-- Artworks          ← A folder containing all the artworks
 ```
+**The site link:**
+https://mikeanims2006.github.io/Mikhos-art-corner/

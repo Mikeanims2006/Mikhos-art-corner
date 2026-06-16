@@ -36,7 +36,7 @@ export async function querySingleEndpoint(query, typeRoute, minScore) {
  */
 export async function searchGlobalCatalog(query, medium, minScore) {
   if (medium === 'both') {
-    // 🚀 ASYNC UPGRADE: Fire both fetches at the exact same time!
+    // Fire both fetches at the exact same time!
     const [animeResults, mangaResults] = await Promise.all([
       querySingleEndpoint(query, 'anime', minScore),
       querySingleEndpoint(query, 'manga', minScore)
