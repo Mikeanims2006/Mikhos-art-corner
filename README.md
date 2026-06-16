@@ -1,27 +1,22 @@
-# Final Project Template
+# Final Project: Mikho's Art Corner
 
-Starter scaffold for the Web Engineering 2026 final project. Open `index.html` in your browser and start building.
+A website containint my artworks and animations, contact info and links, as well as inspirations and searching feature for manga/anime
 
-**Replace first:**
-- `BASE_URL` in `js/api.js` — your chosen API's base URL
-- `<title>` on all three HTML pages — your project name
-- Colour variables in `css/style.css`
-- Page names if needed — `login.html` / `saved.html` can be renamed to match your project
 
 **File structure:**
 ```
 your-project/
-├── index.html        ← main page
-├── login.html        ← login / profile page (rename if needed)
-├── saved.html        ← saved items page (rename if needed)
+├── index.html            ← main page with the gallery
+├── inspirations.html     ← inspirations and search feature
+├── contact.html          ← about me, contact and links
 ├── css/
 │   └── style.css
 ├── js/
-│   ├── main.js       ← entry point for index.html
-│   ├── login.js      ← entry point for login.html
-│   ├── saved.js      ← entry point for saved.html
-│   └── api.js        ← fetch logic + localStorage helpers
+│   ├── main.js           ← entry point for index.html
+│   ├── inspirations.js   ← entry point for inspirations.html
+│   ├── contact.js        ← entry point for contact.html
+│   └── api.js            ← fetch logic
 └── assets/
+    |-- Animations        ← A folder containing all the animations
+    |-- Artworks          ← A folder containing all the artworks
 ```
-
-See [project requirements](https://github.com/cu-cst-web1-2026-eng/materials/blob/main/lecture_13/final_project/README.md) for the full technical checklist and grading breakdown.
